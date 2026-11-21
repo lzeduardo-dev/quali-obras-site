@@ -5,6 +5,10 @@
   if (!root) return;
   const g = window.gsap, ST = window.ScrollTrigger;
 
+  /* ---------- Vídeo de fundo ---------- */
+  const v = root.querySelector('[data-bgvideo]');
+  if (v) { v.muted = true; const p = v.play(); if (p && p.catch) p.catch(() => {}); }
+
   /* ---------- Animações ---------- */
   if (!g) return;
   if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
