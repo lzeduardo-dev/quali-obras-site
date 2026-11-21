@@ -94,6 +94,34 @@
   if (!g) return;
   if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   if (ST) g.registerPlugin(ST);
+
+  /* ---------- Rolagem suave (roda do mouse / trackpad) ---------- */
+  (function smoothWheel() {
+    const html = document.documentElement;
+    const LERP = 0.1; // fração da distância restante percorrida a cada frame (a 60 fps)
+    let target = window.scrollY, current = target, running = false;
+    const maxScroll = () => html.scrollHeight - window.innerHeight;
+    const stop = () => { running = false; html.style.scrollBehavior = ''; };
+    window.addEventListener('wheel', (e) => {
+      if (e.ctrlKey || Math.abs(e.deltaX) > Math.abs(e.deltaY)) return; // zoom e rolagem horizontal ficam nativos
+      if (e.target.closest && e.target.closest('textarea')) return; // campo com rolagem própria
+      e.preventDefault();
+      if (!running) { target = current = window.scrollY; running = true; html.style.scrollBehavior = 'auto'; }
+      const unit = e.deltaMode === 1 ? 33 : e.deltaMode === 2 ? window.innerHeight : 1;
+      target = Math.max(0, Math.min(maxScroll(), target + e.deltaY * unit));
+    }, { passive: false });
+    // Teclado, barra de rolagem e cliques (links do menu) assumem o controle da rolagem
+    ['keydown', 'pointerdown'].forEach((type) => window.addEventListener(type, stop, { passive: true }));
+    g.ticker.add(() => {
+      if (!running) return;
+      current += (target - current) * (1 - Math.pow(1 - LERP, g.ticker.deltaRatio(60)));
+      const done = Math.abs(target - current) < 0.5;
+      if (done) current = target;
+      window.scrollTo(0, current);
+      if (done) stop();
+    });
+  })();
+
   g.context(() => {
 
       g.from('[data-hero]', { y: 56, opacity: 0, duration: 1.1, ease: 'power4.out', stagger: 0.12, delay: 0.15 });
