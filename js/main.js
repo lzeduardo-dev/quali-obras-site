@@ -138,7 +138,7 @@
         const C = 194.8, last = dots.length - 1;
         g.set(rings, { strokeDashoffset: C });
         g.set(fill, { scaleX: 0 });
-        const st = g.timeline({ repeat: -1, repeatDelay: 0.6, delay: 0.6 });
+        const st = g.timeline({ repeat: -1, repeatDelay: 0.6, paused: true });
         dots.forEach((dot, k) => {
           st.to(rings[k], { strokeDashoffset: 0, duration: 0.9, ease: 'power1.inOut' })
             .to(dot, { backgroundColor: '#3B74E0', borderColor: '#3B74E0', duration: 0.35, ease: 'power2.out' })
@@ -149,6 +149,14 @@
           .to(dots, { backgroundColor: '#0A1838', borderColor: '#24407F', duration: 0.5 })
           .to(rings, { strokeDashoffset: C, duration: 0.5 }, '<')
           .to(fill, { scaleX: 0, duration: 0.5 }, '<');
+        // Começa quando a linha do tempo entra na tela e recomeça da etapa 01 a cada chegada;
+        // fica parada (e zerada) enquanto o usuário está fora da seção.
+        const steps = root.querySelector('[data-hsteps]');
+        if (ST && steps) {
+          ST.create({ trigger: steps, start: 'top 75%', end: 'bottom top',
+            onEnter: () => st.restart(), onEnterBack: () => st.restart(),
+            onLeave: () => st.pause(0), onLeaveBack: () => st.pause(0) });
+        } else st.play();
       }
       root.querySelectorAll('[data-line]').forEach((ln, k) => {
         g.from(ln, { yPercent: 60, opacity: 0, duration: 1, delay: k * 0.15, ease: 'power4.out', scrollTrigger: ST ? { trigger: ln.parentNode, start: 'top 80%' } : undefined });
