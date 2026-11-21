@@ -19,6 +19,13 @@
         ST.create({ start: 80, end: 'max', onToggle: (self) => g.to(header, { backgroundColor: self.isActive ? 'rgba(10,24,56,0.94)' : 'rgba(10,24,56,0)', boxShadow: self.isActive ? '0 10px 30px rgba(5,14,40,0.25)' : '0 0 0 rgba(0,0,0,0)', duration: 0.35 }) });
         g.to('[data-hero-img]', { yPercent: 8, ease: 'none', scrollTrigger: { trigger: '#topo', start: 'top top', end: 'bottom top', scrub: true } });
       }
+      const words = root.querySelector('[data-words]');
+      if (words) {
+        const n = words.children.length - 1;
+        const wt = g.timeline({ repeat: -1 });
+        for (let k = 1; k <= n; k++) wt.to(words, { yPercent: -100 * k / (n + 1), duration: 0.7, ease: 'power3.inOut' }, '+=1.6');
+        wt.set(words, { yPercent: 0 });
+      }
       root.querySelectorAll('[data-count]').forEach((el) => {
         const target = parseInt(el.textContent.replace(/\D/g, ''), 10);
         if (!target || /\[/.test(el.textContent)) return;
