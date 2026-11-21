@@ -122,6 +122,9 @@
           .to(rings, { strokeDashoffset: C, duration: 0.5 }, '<')
           .to(fill, { scaleX: 0, duration: 0.5 }, '<');
       }
+      root.querySelectorAll('[data-line]').forEach((ln, k) => {
+        g.from(ln, { yPercent: 60, opacity: 0, duration: 1, delay: k * 0.15, ease: 'power4.out', scrollTrigger: ST ? { trigger: ln.parentNode, start: 'top 80%' } : undefined });
+      });
       const words = root.querySelector('[data-words]');
       if (words) {
         const n = words.children.length - 1;
@@ -136,6 +139,19 @@
         g.to(obj, { v: target, duration: 2, ease: 'power2.out', onUpdate: () => { el.textContent = Math.round(obj.v).toLocaleString('pt-BR'); },
           scrollTrigger: ST ? { trigger: el, start: 'top 85%' } : undefined });
       });
+
+      if (ST) {
+        root.querySelectorAll('[data-reveal]').forEach((el) => {
+          g.from(el, { y: 44, opacity: 0, duration: 0.95, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 88%' } });
+        });
+        root.querySelectorAll('[data-stagger]').forEach((grp) => {
+          g.from(grp.children, { y: 60, opacity: 0, duration: 0.85, ease: 'power3.out', stagger: 0.1, scrollTrigger: { trigger: grp, start: 'top 85%' } });
+        });
+        root.querySelectorAll('[data-parallax]').forEach((img) => {
+          g.fromTo(img, { yPercent: -6 }, { yPercent: 6, ease: 'none', scrollTrigger: { trigger: img.parentNode, start: 'top bottom', end: 'bottom top', scrub: true } });
+        });
+    }
+
       root.querySelectorAll('[data-item]').forEach((li) => {
         const bar = li.querySelector('[data-divider]');
         li.addEventListener('mouseenter', () => g.to(bar, { scaleX: 1, transformOrigin: 'left center', duration: 0.6, ease: 'power3.out' }));
