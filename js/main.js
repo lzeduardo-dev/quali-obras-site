@@ -92,6 +92,11 @@
         a.addEventListener('mouseenter', () => g.to(bar, { scaleX: 1, duration: 0.4, ease: 'power3.out' }));
         a.addEventListener('mouseleave', () => g.to(bar, { scaleX: 0.3, duration: 0.4, ease: 'power3.out' }));
       });
+      root.querySelectorAll('[data-work]').forEach((w) => {
+        const img = w.querySelector('img'), t = w.querySelector('[data-work-title]'), ar = w.querySelector('[data-arrow]');
+        w.addEventListener('mouseenter', () => { g.to(img, { scale: 1.06, duration: 0.8, ease: 'power2.out' }); if (t) g.to(t, { color: '#163A8C', duration: 0.3 }); if (ar) g.to(ar, { x: 6, duration: 0.3, ease: 'power2.out' }); });
+        w.addEventListener('mouseleave', () => { g.to(img, { scale: 1, duration: 0.8, ease: 'power2.out' }); if (t) g.to(t, { color: '#141B2D', duration: 0.3 }); if (ar) g.to(ar, { x: 0, duration: 0.3 }); });
+      });
     
   }, root);
 })();
