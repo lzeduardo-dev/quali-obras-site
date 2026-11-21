@@ -162,10 +162,28 @@
         a.addEventListener('mouseenter', () => g.to(bar, { scaleX: 1, duration: 0.4, ease: 'power3.out' }));
         a.addEventListener('mouseleave', () => g.to(bar, { scaleX: 0.3, duration: 0.4, ease: 'power3.out' }));
       });
+      root.querySelectorAll('[data-hover]').forEach((card) => {
+        const bar = card.querySelector('[data-bar]');
+        card.addEventListener('mouseenter', () => { g.to(card, { y: -8, boxShadow: '0 22px 44px rgba(11,30,77,0.14)', duration: 0.35, ease: 'power2.out' }); if (bar) g.to(bar, { scaleX: 1, duration: 0.45, ease: 'power3.out' }); });
+        card.addEventListener('mouseleave', () => { g.to(card, { y: 0, boxShadow: '0 0 0 rgba(0,0,0,0)', duration: 0.35, ease: 'power2.out' }); if (bar) g.to(bar, { scaleX: 0, duration: 0.35, ease: 'power2.in' }); });
+      });
+      root.querySelectorAll('[data-tint]').forEach((cell) => {
+        cell.addEventListener('mouseenter', () => g.to(cell, { backgroundColor: '#EAF0FA', duration: 0.3 }));
+        cell.addEventListener('mouseleave', () => g.to(cell, { backgroundColor: 'rgba(234,240,250,0)', duration: 0.4 }));
+      });
       root.querySelectorAll('[data-work]').forEach((w) => {
         const img = w.querySelector('img'), t = w.querySelector('[data-work-title]'), ar = w.querySelector('[data-arrow]');
         w.addEventListener('mouseenter', () => { g.to(img, { scale: 1.06, duration: 0.8, ease: 'power2.out' }); if (t) g.to(t, { color: '#163A8C', duration: 0.3 }); if (ar) g.to(ar, { x: 6, duration: 0.3, ease: 'power2.out' }); });
         w.addEventListener('mouseleave', () => { g.to(img, { scale: 1, duration: 0.8, ease: 'power2.out' }); if (t) g.to(t, { color: '#141B2D', duration: 0.3 }); if (ar) g.to(ar, { x: 0, duration: 0.3 }); });
+      });
+      root.querySelectorAll('[data-card]').forEach((card) => {
+        const img = card.querySelector('img'), plus = card.querySelector('[data-plus]');
+        card.addEventListener('mouseenter', () => { g.to(img, { scale: 1.06, duration: 0.8, ease: 'power2.out' }); if (plus) g.to(plus, { rotate: 90, scale: 1.1, duration: 0.4, ease: 'back.out(2)' }); });
+        card.addEventListener('mouseleave', () => { g.to(img, { scale: 1, duration: 0.8, ease: 'power2.out' }); if (plus) g.to(plus, { rotate: 0, scale: 1, duration: 0.4 }); });
+      });
+      root.querySelectorAll('[data-magnet]').forEach((btn) => {
+        btn.addEventListener('mousemove', (e) => { const r = btn.getBoundingClientRect(); g.to(btn, { x: (e.clientX - r.left - r.width / 2) * 0.25, y: (e.clientY - r.top - r.height / 2) * 0.35, duration: 0.3, ease: 'power2.out' }); });
+        btn.addEventListener('mouseleave', () => g.to(btn, { x: 0, y: 0, duration: 0.5, ease: 'elastic.out(1, 0.4)' }));
       });
     
   }, root);
