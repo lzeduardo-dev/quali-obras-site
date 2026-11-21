@@ -18,6 +18,28 @@ a{color:#163A8C}a:hover{color:#0E2A6B}
 <body>
 <div id="app" style="font-family: Inter, system-ui, sans-serif; color: #141B2D; background: #F5F7FB; width: 100%; overflow-x: hidden">
 
+  <!-- Header -->
+  <header data-header="1" style="position: sticky; top: 0; z-index: 20; background: rgba(10,24,56,0.94); color: #FFFFFF">
+    <div style="padding: 14px clamp(20px, 4vw, 56px); min-height: 80px; box-sizing: border-box; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px 32px">
+      <a href="#topo" style="display: flex; align-items: center; gap: 12px; text-decoration: none; color: #FFFFFF">
+        <svg width="38" height="38" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" fill="#3B74E0"/><path d="M10 30 L10 15 L20 9 L30 15 L30 30" fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-linejoin="round"/><path d="M23 23 L30 30" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round"/></svg>
+        <span style="display: flex; flex-direction: column; line-height: 1"><span style="font-family: Manrope, sans-serif; font-weight: 800; font-size: 18px; letter-spacing: 0.06em; text-transform: uppercase">Quali Obras</span><span style="font-size: 10px; letter-spacing: 0.34em; text-transform: uppercase; color: #9CC0EC; margin-top: 5px">Construtora</span></span>
+      </a>
+      <nav aria-label="Principal" style="flex: 1 1 auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 32px">
+        <a href="#diferenciais" style="font-family: 'Space Grotesk', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif; line-height: 1.6; -webkit-font-smoothing: antialiased; box-sizing: border-box; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; position: relative; transition: color .25s; height: auto; padding: 8px 0; font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.86)">Diferenciais</a>
+        <a href="#escopo" style="font-family: 'Space Grotesk', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif; line-height: 1.6; -webkit-font-smoothing: antialiased; box-sizing: border-box; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; position: relative; transition: color .25s; height: auto; padding: 8px 0; font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.86)">Serviços</a>
+        <a href="#portfolio" style="font-family: 'Space Grotesk', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif; line-height: 1.6; -webkit-font-smoothing: antialiased; box-sizing: border-box; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; position: relative; transition: color .25s; height: auto; padding: 8px 0; font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.86)">Obras</a>
+        <a href="#como-trabalhamos" style="font-family: 'Space Grotesk', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif; line-height: 1.6; -webkit-font-smoothing: antialiased; box-sizing: border-box; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; position: relative; transition: color .25s; height: auto; padding: 8px 0; font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.86)">Como trabalhamos</a>
+        <a href="#formulario" style="font-family: 'Space Grotesk', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif; line-height: 1.6; -webkit-font-smoothing: antialiased; box-sizing: border-box; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; position: relative; transition: color .25s; height: auto; padding: 8px 0; font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.86)">Contato</a>
+      </nav>
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 20px">
+        <a href="#topo" aria-label="Instagram" style="color: #FFFFFF; width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
+        <a href="#topo" aria-label="LinkedIn" style="color: #FFFFFF; width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10v7M8 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 10v7"/></svg></a>
+        <a href="https://wa.me/550000000000" data-magnet="1" style="display: inline-flex; align-items: center; gap: 10px; background: #3B74E0; color: #FFFFFF; text-decoration: none; padding: 12px 20px; border-radius: 999px; font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; min-height: 46px; box-sizing: border-box"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.4-4A8 8 0 1 1 8.5 19z"/><path d="M9.5 9.5c.3 2.3 2 4 4.5 4.5"/></svg>WhatsApp</a>
+      </div>
+    </div>
+  </header>
+
 </div>
 <script src="js/vendor/gsap.min.js"></script>
 <script src="js/vendor/ScrollTrigger.min.js"></script>
