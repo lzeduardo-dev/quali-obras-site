@@ -4,6 +4,51 @@
   const root = document.getElementById('app');
   if (!root) return;
   const g = window.gsap, ST = window.ScrollTrigger;
+  const state = { svcCur: -1, faq: -1 };
+
+  /* ---------- Serviços (acordeão + troca de imagem) ---------- */
+  function selectSvc(k, instant) {
+
+    if (k === state.svcCur) return;
+    const g = window.gsap, old = state.svcCur; state.svcCur = k;
+    const q = (sel) => root.querySelectorAll(sel);
+    const items = q('[data-svc-item]'), imgs = q('[data-svc-img]'), cards = q('[data-svc-card]');
+    const on = { title: { color: '#141B2D' }, btn: { backgroundColor: '#0B1E4D', borderColor: '#0B1E4D', color: '#FFFFFF' } };
+    const off = { title: { color: '#6B7891' }, btn: { backgroundColor: 'rgba(11,30,77,0)', borderColor: '#C9D1DE', color: '#141B2D' } };
+    const parts = (n) => { const it = items[n]; return it ? { it, t: it.querySelector('[data-svc-title]'), b: it.querySelector('[data-svc-btn]'), p: it.querySelector('[data-svc-panel]'), btn: it.querySelector('button') } : null; };
+    const nw = parts(k), od = old >= 0 ? parts(old) : null;
+    if (nw) nw.btn.setAttribute('aria-expanded', 'true');
+    if (od) od.btn.setAttribute('aria-expanded', 'false');
+    const anim = g && !instant && true;
+    if (!anim) {
+      const set = (el, props) => { if (!el) return; if (g) g.set(el, props); else Object.assign(el.style, props); };
+      if (od) { set(od.t, off.title); set(od.b, off.btn); set(od.p, { height: '0px', opacity: 0 }); }
+      if (nw) { set(nw.t, on.title); set(nw.b, on.btn); set(nw.p, { height: 'auto', opacity: 1 }); }
+      imgs.forEach((im, n) => set(im, { opacity: n === k ? 1 : 0 }));
+      cards.forEach((c, n) => set(c, { opacity: n === k ? 1 : 0 }));
+      return;
+    }
+    const ease = 'power3.inOut';
+    if (od) {
+      g.to(od.p, { height: 0, opacity: 0, duration: 0.7, ease, overwrite: true });
+      g.to(od.t, { ...off.title, duration: 0.5, ease: 'power2.out' });
+      g.to(od.b, { ...off.btn, duration: 0.5, ease: 'power2.out' });
+      if (imgs[old]) g.to(imgs[old], { opacity: 0, duration: 1, ease: 'power2.inOut', overwrite: true });
+      if (cards[old]) g.to(cards[old], { opacity: 0, y: -10, duration: 0.4, ease: 'power2.in', overwrite: true });
+    }
+    if (nw) {
+      g.fromTo(nw.p, { height: nw.p.offsetHeight }, { height: 'auto', opacity: 1, duration: 0.7, ease, overwrite: true });
+      g.to(nw.t, { ...on.title, duration: 0.5, ease: 'power2.out' });
+      g.to(nw.b, { ...on.btn, duration: 0.5, ease: 'power2.out' });
+    }
+    if (imgs[k]) g.fromTo(imgs[k], { opacity: 0, scale: 1.05 }, { opacity: 1, scale: 1, duration: 1.2, ease: 'power2.out', overwrite: true });
+    if (cards[k]) g.fromTo(cards[k], { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.6, delay: 0.3, ease: 'power3.out', overwrite: true });
+  
+  }
+  root.querySelectorAll('[data-svc-item]').forEach((item, k) => {
+    item.querySelector('button').addEventListener('click', () => selectSvc(k));
+  });
+  selectSvc(0, true);
 
   /* ---------- Vídeo de fundo ---------- */
   const v = root.querySelector('[data-bgvideo]');
