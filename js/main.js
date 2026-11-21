@@ -68,6 +68,23 @@
         ST.create({ start: 80, end: 'max', onToggle: (self) => g.to(header, { backgroundColor: self.isActive ? 'rgba(10,24,56,0.94)' : 'rgba(10,24,56,0)', boxShadow: self.isActive ? '0 10px 30px rgba(5,14,40,0.25)' : '0 0 0 rgba(0,0,0,0)', duration: 0.35 }) });
         g.to('[data-hero-img]', { yPercent: 8, ease: 'none', scrollTrigger: { trigger: '#topo', start: 'top top', end: 'bottom top', scrub: true } });
       }
+      const dots = root.querySelectorAll('[data-hdot]'), rings = root.querySelectorAll('[data-hring]'), fill = root.querySelector('[data-hfill]');
+      if (dots.length && fill) {
+        const C = 194.8, last = dots.length - 1;
+        g.set(rings, { strokeDashoffset: C });
+        g.set(fill, { scaleX: 0 });
+        const st = g.timeline({ repeat: -1, repeatDelay: 0.6, delay: 0.6 });
+        dots.forEach((dot, k) => {
+          st.to(rings[k], { strokeDashoffset: 0, duration: 0.9, ease: 'power1.inOut' })
+            .to(dot, { backgroundColor: '#3B74E0', borderColor: '#3B74E0', duration: 0.35, ease: 'power2.out' })
+            .to(dot, { scale: 1.08, duration: 0.15, yoyo: true, repeat: 1 }, '<');
+          if (k < last) st.to(fill, { scaleX: (k + 1) / last, duration: 0.8, ease: 'power1.inOut' });
+        });
+        st.to({}, { duration: 1.6 })
+          .to(dots, { backgroundColor: '#0A1838', borderColor: '#24407F', duration: 0.5 })
+          .to(rings, { strokeDashoffset: C, duration: 0.5 }, '<')
+          .to(fill, { scaleX: 0, duration: 0.5 }, '<');
+      }
       const words = root.querySelector('[data-words]');
       if (words) {
         const n = words.children.length - 1;
