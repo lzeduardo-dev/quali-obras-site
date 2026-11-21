@@ -69,6 +69,23 @@
   faqItems.forEach((it, k) => it.btn.addEventListener('click', () => setFaq(state.faq === k ? -1 : k)));
   setFaq(0, true);
 
+  /* ---------- Formulário de orçamento ---------- */
+  const form = root.querySelector('#orcamento-form');
+  const sent = root.querySelector('[data-sent]');
+  if (form && sent) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (!form.checkValidity()) { form.reportValidity(); return; }
+      // TODO: enviar os dados (fetch para backend, Formspree, EmailJS etc.)
+      // const data = Object.fromEntries(new FormData(form));
+      form.hidden = true; form.style.display = 'none';
+      sent.hidden = false; sent.style.display = 'flex';
+      if (g) { g.from(sent, { opacity: 0, y: 30, duration: 0.6, ease: 'power3.out' }); g.from(sent.firstElementChild, { scale: 0, rotate: -90, duration: 0.7, delay: 0.15, ease: 'back.out(2)' }); }
+    });
+    const reset = sent.querySelector('[data-reset]');
+    if (reset) reset.addEventListener('click', () => { form.reset(); sent.hidden = true; sent.style.display = 'none'; form.hidden = false; form.style.display = 'grid'; });
+  }
+
   /* ---------- Vídeo de fundo ---------- */
   const v = root.querySelector('[data-bgvideo]');
   if (v) { v.muted = true; const p = v.play(); if (p && p.catch) p.catch(() => {}); }
