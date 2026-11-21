@@ -19,6 +19,13 @@
         ST.create({ start: 80, end: 'max', onToggle: (self) => g.to(header, { backgroundColor: self.isActive ? 'rgba(10,24,56,0.94)' : 'rgba(10,24,56,0)', boxShadow: self.isActive ? '0 10px 30px rgba(5,14,40,0.25)' : '0 0 0 rgba(0,0,0,0)', duration: 0.35 }) });
         g.to('[data-hero-img]', { yPercent: 8, ease: 'none', scrollTrigger: { trigger: '#topo', start: 'top top', end: 'bottom top', scrub: true } });
       }
+      root.querySelectorAll('[data-count]').forEach((el) => {
+        const target = parseInt(el.textContent.replace(/\D/g, ''), 10);
+        if (!target || /\[/.test(el.textContent)) return;
+        const obj = { v: 0 };
+        g.to(obj, { v: target, duration: 2, ease: 'power2.out', onUpdate: () => { el.textContent = Math.round(obj.v).toLocaleString('pt-BR'); },
+          scrollTrigger: ST ? { trigger: el, start: 'top 85%' } : undefined });
+      });
     
   }, root);
 })();
