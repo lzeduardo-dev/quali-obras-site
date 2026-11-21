@@ -33,6 +33,16 @@
         g.to(obj, { v: target, duration: 2, ease: 'power2.out', onUpdate: () => { el.textContent = Math.round(obj.v).toLocaleString('pt-BR'); },
           scrollTrigger: ST ? { trigger: el, start: 'top 85%' } : undefined });
       });
+      root.querySelectorAll('[data-item]').forEach((li) => {
+        const bar = li.querySelector('[data-divider]');
+        li.addEventListener('mouseenter', () => g.to(bar, { scaleX: 1, transformOrigin: 'left center', duration: 0.6, ease: 'power3.out' }));
+        li.addEventListener('mouseleave', () => g.to(bar, { scaleX: 0, transformOrigin: 'right center', duration: 0.5, ease: 'power3.in' }));
+      });
+      root.querySelectorAll('[data-underline]').forEach((a) => {
+        const bar = a.querySelector('[data-underline-bar]');
+        a.addEventListener('mouseenter', () => g.to(bar, { scaleX: 1, duration: 0.4, ease: 'power3.out' }));
+        a.addEventListener('mouseleave', () => g.to(bar, { scaleX: 0.3, duration: 0.4, ease: 'power3.out' }));
+      });
     
   }, root);
 })();
