@@ -50,6 +50,25 @@
   });
   selectSvc(0, true);
 
+  /* ---------- FAQ ---------- */
+  const faqItems = [...root.querySelectorAll('[data-faq-btn]')].map((btn) => {
+    const wrap = btn.parentElement;
+    return { btn, panel: wrap.querySelector('[data-faq-panel]'), open: btn.querySelector('[data-icon-open]'), closed: btn.querySelector('[data-icon-closed]') };
+  });
+  function setFaq(k, instant) {
+    faqItems.forEach((it, n) => {
+      const isOpen = n === k;
+      it.btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      it.open.style.display = isOpen ? 'flex' : 'none';
+      it.closed.style.display = isOpen ? 'none' : 'flex';
+      if (g && !instant) g.to(it.panel, { height: isOpen ? 'auto' : 0, opacity: isOpen ? 1 : 0, duration: 0.5, ease: 'power2.inOut', overwrite: true });
+      else { it.panel.style.height = isOpen ? 'auto' : '0px'; it.panel.style.opacity = isOpen ? 1 : 0; }
+    });
+    state.faq = k;
+  }
+  faqItems.forEach((it, k) => it.btn.addEventListener('click', () => setFaq(state.faq === k ? -1 : k)));
+  setFaq(0, true);
+
   /* ---------- Vídeo de fundo ---------- */
   const v = root.querySelector('[data-bgvideo]');
   if (v) { v.muted = true; const p = v.play(); if (p && p.catch) p.catch(() => {}); }
