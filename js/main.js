@@ -206,6 +206,13 @@
         });
     }
 
+      root.querySelectorAll('[data-navlink]').forEach((a) => {
+        const ln = a.querySelector('[data-navline]');
+        a.addEventListener('mouseenter', () => { g.to(a, { color: '#FFFFFF', duration: 0.25 }); g.to(ln, { scaleX: 1, transformOrigin: 'left center', duration: 0.45, ease: 'power3.out' }); });
+        a.addEventListener('mouseleave', () => { g.to(a, { color: 'rgba(255,255,255,0.86)', duration: 0.25 }); g.to(ln, { scaleX: 0, transformOrigin: 'right center', duration: 0.4, ease: 'power3.in' }); });
+        a.addEventListener('focus', () => g.to(ln, { scaleX: 1, transformOrigin: 'left center', duration: 0.45 }));
+        a.addEventListener('blur', () => g.to(ln, { scaleX: 0, transformOrigin: 'right center', duration: 0.4 }));
+      });
       root.querySelectorAll('[data-item]').forEach((li) => {
         const bar = li.querySelector('[data-divider]');
         li.addEventListener('mouseenter', () => g.to(bar, { scaleX: 1, transformOrigin: 'left center', duration: 0.6, ease: 'power3.out' }));

@@ -1,15 +1,26 @@
 # Quali Obras — site institucional (handoff para o Claude Code)
 
-Landing page de uma construtora (construção, reformas e gerenciamento de obras), em **pt-BR**.
+Site institucional de uma construtora (construção, reformas e gerenciamento de obras), em **pt-BR**.
 Este pacote é a exportação estática do protótipo feito no canvas de design. Funciona abrindo `index.html` direto no navegador.
+
+## Páginas
+
+| Arquivo | Conteúdo |
+|---|---|
+| `index.html` | Página inicial (hero, números, diferenciais, serviços, portfólio, como trabalhamos, FAQ, formulário) |
+| `servicos.html` | Seletor de serviços (troca imagem/descrição/itens) + etapas Pré-obra / Obra / Pós-obra |
+| `obras.html` | Portfólio com filtros por tipo e por método construtivo |
+| `obra-1.html` … `obra-7.html` | Página de cada obra (ficha técnica, imagem, descrição, galeria, anterior/próxima) |
+| `sobre.html` | História, números, pilares, missão/visão/valores |
 
 ## Estrutura
 
 ```
 quali-obras-site/
-├── index.html              # página única, estilos inline + <style> no <head>
+├── index.html, servicos.html, obras.html, sobre.html, obra-1..7.html
 ├── js/
-│   ├── main.js             # interações (acordeões, formulário, vídeo) + animações GSAP
+│   ├── main.js             # página inicial: acordeões, formulário, vídeo + animações GSAP
+│   ├── site.js             # páginas internas: seletor de serviços, filtros de obras + animações
 │   └── vendor/             # gsap.min.js e ScrollTrigger.min.js (GSAP 3.15)
 └── assets/
     ├── img/                # fotos (algumas geradas por IA — trocar por reais)
@@ -49,8 +60,11 @@ O script respeita `prefers-reduced-motion`.
 - [ ] **Imagens**: `hero-canteiro.jpg`, `obra-escola.jpg`, `obra-escritorio.jpg`, `obra-farmacia.jpg` e o vídeo foram gerados por IA. A farmácia tem um nome fictício na fachada. Trocar por fotos reais da empresa.
 - [ ] `obra-guindaste.jpg` tem baixa resolução (610×327): substituir por uma versão maior.
 - [ ] Revisar a responsividade no celular: a linha do tempo de "Como trabalhamos" pressupõe 4 colunas.
+- [ ] **Obras**: dados de exemplo (nome, local, área, método, status, galeria) em `obras.html` (atributos `data-cat`/`data-method`) e em `obra-N.html`. Ideal: gerar as páginas de obra a partir de um único arquivo de dados (JSON/CMS) em vez de 7 HTMLs.
+- [ ] `sobre-por-do-sol.jpg` parece ser foto do site de referência (obra de outra empresa): **substituir antes de publicar**.
+- [ ] Header/rodapé repetidos em todas as páginas: extrair para componentes/partials.
 - [ ] Opcional: migrar para um framework (ex.: Next.js + Tailwind), extraindo os estilos inline para CSS/componentes. Também otimizar as imagens (WebP/AVIF, `srcset`) e adicionar SEO (Open Graph, schema `LocalBusiness`) e favicon.
 
 ## Prompt sugerido para o Claude Code
 
-> Este é o site estático da construtora Quali Obras (veja o README.md). Organize o projeto como [Next.js + Tailwind / HTML+CSS separado], mantendo visual e animações GSAP idênticos. Extraia os estilos inline para classes, deixe responsivo no celular e integre o formulário de orçamento a [serviço de e-mail]. Liste os textos entre colchetes que ainda precisam de dados reais.
+> Este é o site estático (multipáginas) da construtora Quali Obras (veja o README.md). Organize o projeto como [Next.js + Tailwind / HTML+CSS separado], mantendo visual e animações GSAP idênticos, com header/rodapé como componentes compartilhados e as obras vindas de um arquivo de dados. Extraia os estilos inline para classes, deixe responsivo no celular e integre o formulário de orçamento a [serviço de e-mail]. Liste os textos entre colchetes que ainda precisam de dados reais.
