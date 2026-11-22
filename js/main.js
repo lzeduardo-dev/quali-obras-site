@@ -198,6 +198,12 @@
         root.querySelectorAll('[data-parallax]').forEach((img) => {
           g.fromTo(img, { yPercent: -6 }, { yPercent: 6, ease: 'none', scrollTrigger: { trigger: img.parentNode, start: 'top bottom', end: 'bottom top', scrub: true } });
         });
+        // Imagens: cortina subindo de baixo para cima enquanto a foto sai de um leve zoom
+        root.querySelectorAll('[data-img-reveal]').forEach((box) => {
+          const tl = g.timeline({ scrollTrigger: { trigger: box, start: 'top 85%' } });
+          tl.fromTo(box, { clipPath: 'inset(100% 0% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.3, ease: 'power4.inOut', clearProps: 'clipPath' })
+            .from(box.querySelectorAll('img'), { scale: 1.3, duration: 1.8, ease: 'power3.out' }, 0);
+        });
     }
 
       root.querySelectorAll('[data-item]').forEach((li) => {
@@ -221,8 +227,8 @@
       });
       root.querySelectorAll('[data-work]').forEach((w) => {
         const img = w.querySelector('img'), t = w.querySelector('[data-work-title]'), ar = w.querySelector('[data-arrow]');
-        w.addEventListener('mouseenter', () => { g.to(img, { scale: 1.06, duration: 0.8, ease: 'power2.out' }); if (t) g.to(t, { color: '#163A8C', duration: 0.3 }); if (ar) g.to(ar, { x: 6, duration: 0.3, ease: 'power2.out' }); });
-        w.addEventListener('mouseleave', () => { g.to(img, { scale: 1, duration: 0.8, ease: 'power2.out' }); if (t) g.to(t, { color: '#141B2D', duration: 0.3 }); if (ar) g.to(ar, { x: 0, duration: 0.3 }); });
+        w.addEventListener('mouseenter', () => { g.to(img, { scale: 1.06, duration: 0.8, ease: 'power2.out', overwrite: 'auto' }); if (t) g.to(t, { color: '#163A8C', duration: 0.3 }); if (ar) g.to(ar, { x: 6, duration: 0.3, ease: 'power2.out' }); });
+        w.addEventListener('mouseleave', () => { g.to(img, { scale: 1, duration: 0.8, ease: 'power2.out', overwrite: 'auto' }); if (t) g.to(t, { color: '#141B2D', duration: 0.3 }); if (ar) g.to(ar, { x: 0, duration: 0.3 }); });
       });
       root.querySelectorAll('[data-card]').forEach((card) => {
         const img = card.querySelector('img'), plus = card.querySelector('[data-plus]');
