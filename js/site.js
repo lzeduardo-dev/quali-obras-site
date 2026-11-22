@@ -42,6 +42,54 @@
     svcBtns.forEach((b, i) => b.addEventListener('click', () => select(i)));
   }
 
+  /* ---------- Obras: filtros ---------- */
+  const cards = [...root.querySelectorAll('[data-card]')];
+  if (cards.length) {
+    const fBtns = [...root.querySelectorAll('[data-filter]')];
+    const sel = root.querySelector('[data-method-select]');
+    const countLabel = root.querySelector('[data-countlabel]');
+    const empty = root.querySelector('[data-empty]');
+    const grid = root.querySelector('[data-grid]');
+    const onStyle = fBtns.find((b) => b.getAttribute('aria-pressed') === 'true').getAttribute('style');
+    const offStyle = fBtns.find((b) => b.getAttribute('aria-pressed') === 'false').getAttribute('style');
+    const pattern = [['g4', 'r-wide'], ['g2', 'r-tall'], ['g2', 'r-sq'], ['g2', 'r-sq'], ['g2', 'r-sq'], ['g3', 'r-half'], ['g3', 'r-half']];
+    let cat = 'Todas';
+    function apply(animate) {
+      const method = sel ? sel.value : '';
+      const byMethod = cards.filter((c) => !method || c.dataset.method === method);
+      const visible = byMethod.filter((c) => cat === 'Todas' || c.dataset.cat === cat);
+      cards.forEach((c) => { c.style.display = 'none'; });
+      visible.forEach((c, i) => {
+        const p = pattern[i % pattern.length];
+        c.style.display = 'flex'; c.className = p[0];
+        const box = c.querySelector('[data-ratio]'); if (box) box.className = p[1];
+        grid.appendChild(c);
+      });
+      fBtns.forEach((b) => {
+        const label = b.dataset.filter, on = label === cat;
+        b.setAttribute('aria-pressed', on ? 'true' : 'false');
+        b.setAttribute('style', on ? onStyle : offStyle);
+        const cnt = b.querySelector('[data-fcount]');
+        cnt.textContent = label === 'Todas' ? byMethod.length : byMethod.filter((c) => c.dataset.cat === label).length;
+        cnt.style.color = on ? '#9CC0EC' : '#5B6577';
+      });
+      countLabel.textContent = visible.length + (visible.length === 1 ? ' obra' : ' obras');
+      grid.hidden = visible.length === 0; if (empty) empty.hidden = visible.length !== 0;
+      if (animate && anim) {
+        g.fromTo(visible, { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: 'power3.out', stagger: 0.07 });
+        visible.forEach((c, i) => {
+          const box = c.querySelector('[data-reveal-img]'), im = box && box.querySelector('img');
+          if (box) g.fromTo(box, { clipPath: 'inset(0% 0% 100% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1, delay: i * 0.07, ease: 'power4.inOut' });
+          if (im) g.fromTo(im, { scale: 1.3 }, { scale: 1, duration: 1.4, delay: i * 0.07, ease: 'power3.out' });
+        });
+      }
+    }
+    fBtns.forEach((b) => b.addEventListener('click', () => { cat = b.dataset.filter; apply(true); }));
+    if (sel) sel.addEventListener('change', () => apply(true));
+    const clear = root.querySelector('[data-clear]');
+    if (clear) clear.addEventListener('click', () => { cat = 'Todas'; if (sel) sel.value = ''; apply(true); });
+  }
+
   /* ---------- Animações ---------- */
   if (!anim) return;
   g.context(() => {
@@ -51,11 +99,26 @@
       root.querySelectorAll('[data-reveal]').forEach((el) => g.from(el, { y: 40, opacity: 0, duration: 0.9, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 88%' } }));
       root.querySelectorAll('[data-stagger]').forEach((grp) => g.from(grp.children, { y: 50, opacity: 0, duration: 0.8, ease: 'power3.out', stagger: 0.1, scrollTrigger: { trigger: grp, start: 'top 85%' } }));
       root.querySelectorAll('[data-parallax]').forEach((img) => g.fromTo(img, { yPercent: -6 }, { yPercent: 6, ease: 'none', scrollTrigger: { trigger: img.parentNode, start: 'top bottom', end: 'bottom top', scrub: true } }));
+      root.querySelectorAll('[data-count]').forEach((el) => {
+        const t = parseInt(el.textContent.replace(/\D/g, ''), 10); if (!t || /\[/.test(el.textContent)) return;
+        const o = { v: 0 }; g.to(o, { v: t, duration: 2, ease: 'power2.out', onUpdate: () => { el.textContent = Math.round(o.v).toLocaleString('pt-BR'); }, scrollTrigger: { trigger: el, start: 'top 85%' } });
+      });
       root.querySelectorAll('[data-drawline]').forEach((ln) => g.from(ln, { scaleX: 0, transformOrigin: 'left center', duration: 1.1, ease: 'power3.inOut', scrollTrigger: { trigger: ln, start: 'top 88%' } }));
+      root.querySelectorAll('[data-reveal-img]').forEach((box) => {
+        const img = box.querySelector('img');
+        const tl = g.timeline({ scrollTrigger: { trigger: box, start: 'top 88%' } });
+        tl.fromTo(box, { clipPath: 'inset(0% 0% 100% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.2, ease: 'power4.inOut' });
+        if (img) tl.fromTo(img, { scale: 1.3 }, { scale: 1, duration: 1.6, ease: 'power3.out' }, 0);
+      });
     }
     root.querySelectorAll('[data-magnet]').forEach((btn) => {
       btn.addEventListener('mousemove', (e) => { const r = btn.getBoundingClientRect(); g.to(btn, { x: (e.clientX - r.left - r.width / 2) * 0.25, y: (e.clientY - r.top - r.height / 2) * 0.35, duration: 0.3 }); });
       btn.addEventListener('mouseleave', () => g.to(btn, { x: 0, y: 0, duration: 0.5, ease: 'elastic.out(1, 0.4)' }));
+    });
+    root.querySelectorAll('[data-zoom]').forEach((w) => {
+      const img = w.querySelector('img'), ar = w.querySelector('[data-arrow]');
+      w.addEventListener('mouseenter', () => { if (img) g.to(img, { scale: 1.05, duration: 0.8, ease: 'power2.out' }); if (ar) g.to(ar, { x: 6, duration: 0.3 }); });
+      w.addEventListener('mouseleave', () => { if (img) g.to(img, { scale: 1, duration: 0.8, ease: 'power2.out' }); if (ar) g.to(ar, { x: 0, duration: 0.3 }); });
     });
   }, root);
 })();
