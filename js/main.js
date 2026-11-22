@@ -45,8 +45,20 @@
     if (cards[k]) g.fromTo(cards[k], { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.6, delay: 0.3, ease: 'power3.out', overwrite: true });
   
   }
+  // Com mouse, o item também abre ao passar o cursor. Ele precisa ficar 120 ms sobre o item
+  // (atravessar a lista não abre nada) e só conta movimento real do mouse, para o acordeão
+  // não trocar sozinho quando a página rola ou os itens mudam de altura. O clique continua valendo.
+  const canHover = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  let hoverTimer = null, hoverK = -1;
   root.querySelectorAll('[data-svc-item]').forEach((item, k) => {
     item.querySelector('button').addEventListener('click', () => selectSvc(k));
+    if (!canHover) return;
+    item.addEventListener('pointermove', () => {
+      if (k === state.svcCur || k === hoverK) return;
+      clearTimeout(hoverTimer); hoverK = k;
+      hoverTimer = setTimeout(() => { hoverK = -1; selectSvc(k); }, 120);
+    });
+    item.addEventListener('pointerleave', () => { if (hoverK === k) { clearTimeout(hoverTimer); hoverK = -1; } });
   });
   selectSvc(0, true);
 
