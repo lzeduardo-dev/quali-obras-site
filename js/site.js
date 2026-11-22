@@ -104,6 +104,11 @@
         const o = { v: 0 }; g.to(o, { v: t, duration: 2, ease: 'power2.out', onUpdate: () => { el.textContent = Math.round(o.v).toLocaleString('pt-BR'); }, scrollTrigger: { trigger: el, start: 'top 85%' } });
       });
       root.querySelectorAll('[data-drawline]').forEach((ln) => g.from(ln, { scaleX: 0, transformOrigin: 'left center', duration: 1.1, ease: 'power3.inOut', scrollTrigger: { trigger: ln, start: 'top 88%' } }));
+      root.querySelectorAll('[data-reveal-wide]').forEach((box) => {
+        const img = box.querySelector('img');
+        g.fromTo(box, { clipPath: 'inset(0% 0% 100% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', ease: 'none', scrollTrigger: { trigger: box, start: 'top 95%', end: 'center 55%', scrub: 0.8 } });
+        if (img) g.fromTo(img, { scale: 1.3 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: box, start: 'top bottom', end: 'bottom top', scrub: 0.8 } });
+      });
       root.querySelectorAll('[data-reveal-img]').forEach((box) => {
         const img = box.querySelector('img');
         const tl = g.timeline({ scrollTrigger: { trigger: box, start: 'top 88%' } });
@@ -114,6 +119,11 @@
     root.querySelectorAll('[data-magnet]').forEach((btn) => {
       btn.addEventListener('mousemove', (e) => { const r = btn.getBoundingClientRect(); g.to(btn, { x: (e.clientX - r.left - r.width / 2) * 0.25, y: (e.clientY - r.top - r.height / 2) * 0.35, duration: 0.3 }); });
       btn.addEventListener('mouseleave', () => g.to(btn, { x: 0, y: 0, duration: 0.5, ease: 'elastic.out(1, 0.4)' }));
+    });
+    root.querySelectorAll('[data-lift]').forEach((card) => {
+      const bar = card.querySelector('[data-bar]');
+      card.addEventListener('mouseenter', () => { g.to(card, { y: -6, boxShadow: '0 22px 44px rgba(11,30,77,0.12)', duration: 0.35 }); if (bar) g.to(bar, { scaleX: 1, duration: 0.45, ease: 'power3.out' }); });
+      card.addEventListener('mouseleave', () => { g.to(card, { y: 0, boxShadow: '0 0 0 rgba(0,0,0,0)', duration: 0.35 }); if (bar) g.to(bar, { scaleX: 0, duration: 0.35 }); });
     });
     root.querySelectorAll('[data-zoom]').forEach((w) => {
       const img = w.querySelector('img'), ar = w.querySelector('[data-arrow]');
