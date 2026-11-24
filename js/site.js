@@ -106,8 +106,17 @@
       root.querySelectorAll('[data-drawline]').forEach((ln) => g.from(ln, { scaleX: 0, transformOrigin: 'left center', duration: 1.1, ease: 'power3.inOut', scrollTrigger: { trigger: ln, start: 'top 88%' } }));
       root.querySelectorAll('[data-reveal-wide]').forEach((box) => {
         const img = box.querySelector('img');
-        g.fromTo(box, { clipPath: 'inset(0% 0% 100% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', ease: 'none', scrollTrigger: { trigger: box, start: 'top 95%', end: 'center 55%', scrub: 0.8 } });
-        if (img) g.fromTo(img, { scale: 1.3 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: box, start: 'top bottom', end: 'bottom top', scrub: 0.8 } });
+        // Abre (cortina + zoom) acompanhando a rolagem. Quando termina de abrir, solta da rolagem
+        // e fica congelada: subir a página não fecha a imagem de novo.
+        const tl = g.timeline({ paused: true, defaults: { ease: 'none' } })
+          .fromTo(box, { clipPath: 'inset(0% 0% 100% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)' });
+        if (img) tl.fromTo(img, { scale: 1.3 }, { scale: 1 }, 0);
+        const freeze = (self) => {
+          if (self.progress < 1) return;
+          self.kill(false, true); // para de seguir a rolagem, mantendo a animação
+          g.to(tl, { progress: 1, duration: 0.4, ease: 'power2.out', overwrite: true, onComplete: () => g.set(box, { clearProps: 'clipPath' }) });
+        };
+        ST.create({ trigger: box, start: 'top 95%', end: 'center 55%', scrub: 0.8, animation: tl, onUpdate: freeze, onRefresh: freeze });
       });
       root.querySelectorAll('[data-reveal-img]').forEach((box) => {
         const img = box.querySelector('img');
