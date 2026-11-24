@@ -35,7 +35,7 @@
       img.src = v.img; img.alt = v.alt; title.textContent = v.title; desc.textContent = v.desc;
       list.innerHTML = v.items.map((t) => '<li style="display: flex; align-items: center; gap: 12px">' + check + t.replace(/</g, '&lt;') + '</li>').join('');
       if (anim) {
-        g.fromTo(img, { opacity: 0, scale: 1.06 }, { opacity: 1, scale: 1, duration: 0.9, ease: 'power2.out' });
+        g.fromTo(img, { opacity: 0, scale: 1.06 }, { opacity: 1, scale: 1, duration: 0.6, ease: 'power2.out' });
         g.fromTo(body.children, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: 'power3.out', stagger: 0.06 });
       }
     }
@@ -79,8 +79,8 @@
         g.fromTo(visible, { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: 'power3.out', stagger: 0.07 });
         visible.forEach((c, i) => {
           const box = c.querySelector('[data-reveal-img]'), im = box && box.querySelector('img');
-          if (box) g.fromTo(box, { clipPath: 'inset(0% 0% 100% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1, delay: i * 0.07, ease: 'power4.inOut' });
-          if (im) g.fromTo(im, { scale: 1.3 }, { scale: 1, duration: 1.4, delay: i * 0.07, ease: 'power3.out' });
+          if (box) g.fromTo(box, { clipPath: 'inset(0% 0% 100% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 0.7, delay: i * 0.07, ease: 'power4.inOut' });
+          if (im) g.fromTo(im, { scale: 1.3 }, { scale: 1, duration: 0.95, delay: i * 0.07, ease: 'power3.out' });
         });
       }
     }
@@ -121,8 +121,8 @@
       root.querySelectorAll('[data-reveal-img]').forEach((box) => {
         const img = box.querySelector('img');
         const tl = g.timeline({ scrollTrigger: { trigger: box, start: 'top 88%' } });
-        tl.fromTo(box, { clipPath: 'inset(0% 0% 100% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.2, ease: 'power4.inOut' });
-        if (img) tl.fromTo(img, { scale: 1.3 }, { scale: 1, duration: 1.6, ease: 'power3.out' }, 0);
+        tl.fromTo(box, { clipPath: 'inset(0% 0% 100% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 0.8, ease: 'power4.inOut' });
+        if (img) tl.fromTo(img, { scale: 1.3 }, { scale: 1, duration: 1.05, ease: 'power3.out' }, 0);
       });
     }
     root.querySelectorAll('[data-magnet]').forEach((btn) => {

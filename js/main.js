@@ -41,7 +41,7 @@
       g.to(nw.t, { ...on.title, duration: 0.5, ease: 'power2.out' });
       g.to(nw.b, { ...on.btn, duration: 0.5, ease: 'power2.out' });
     }
-    if (imgs[k]) g.fromTo(imgs[k], { opacity: 0 }, { opacity: 1, duration: 1.2, ease: 'power2.out', overwrite: true });
+    if (imgs[k]) g.fromTo(imgs[k], { opacity: 0 }, { opacity: 1, duration: 0.8, ease: 'power2.out', overwrite: true });
     if (cards[k]) g.fromTo(cards[k], { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.6, delay: 0.3, ease: 'power3.out', overwrite: true });
   
   }
