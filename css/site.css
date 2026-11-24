@@ -102,6 +102,7 @@ section[id] { scroll-margin-top: 72px; }
 
   /* ---------- Página inicial ---------- */
   #topo > div[style*="min-height: 820px"] { padding: 116px 20px 48px !important; min-height: 100svh !important; gap: 18px !important; }
+  #topo [data-hero-img] { object-position: center top !important; } /* foto vertical do celular */
   #topo h1 { font-size: 44px !important; }
   #topo p { font-size: 17px !important; }
   #topo a[href="#formulario"] { align-self: stretch !important; justify-content: center; }
