@@ -1,23 +1,38 @@
 # Quali Obras — site institucional (handoff para o Claude Code)
 
 Site institucional de uma construtora (construção, reformas e gerenciamento de obras), em **pt-BR**.
-Este pacote é a exportação estática do protótipo feito no canvas de design. Funciona abrindo `index.html` direto no navegador.
+Este pacote é a exportação estática do protótipo feito no canvas de design.
+
+## Rodar localmente
+
+As URLs não têm `.html` (`/servicos`, `/obras/sede-atlantico`), então o site precisa de um servidor; abrir o `index.html` direto no navegador não funciona. Sem instalar nada:
+
+```bash
+python3 tools/dev_server.py
+```
+
+e abra http://localhost:8080. Na Vercel, o `vercel.json` faz o mesmo com `cleanUrls`.
 
 ## Páginas
 
-| Arquivo | Conteúdo |
-|---|---|
-| `index.html` | Página inicial (hero, números, diferenciais, serviços, portfólio, como trabalhamos, FAQ, formulário) |
-| `servicos.html` | Seletor de serviços (troca imagem/descrição/itens) + etapas Pré-obra / Obra / Pós-obra |
-| `obras.html` | Portfólio com filtros por tipo e por método construtivo |
-| `obra-1.html` … `obra-7.html` | Página de cada obra (ficha técnica, imagem, descrição, galeria, anterior/próxima) |
-| `sobre.html` | História, números, pilares, missão/visão/valores |
+| URL | Arquivo | Conteúdo |
+|---|---|---|
+| `/` | `index.html` | Página inicial (hero, números, diferenciais, serviços, portfólio, como trabalhamos, FAQ, formulário) |
+| `/servicos` | `servicos.html` | Seletor de serviços (troca imagem/descrição/itens) + etapas Pré-obra / Obra / Pós-obra |
+| `/obras` | `obras.html` | Portfólio com filtros por tipo e por método construtivo |
+| `/obras/<nome>` | `obras/<nome>.html` | Página de cada obra (ficha técnica, imagem, descrição, galeria, anterior/próxima) |
+| `/sobre` | `sobre.html` | História, números, pilares, missão/visão/valores |
+
+Links e caminhos de imagens e scripts são absolutos (`/obras`, `/assets/...`), para funcionar também dentro de `/obras/`.
 
 ## Estrutura
 
 ```
 quali-obras-site/
-├── index.html, servicos.html, obras.html, sobre.html, obra-1..7.html
+├── index.html, servicos.html, obras.html, sobre.html
+├── obras/                  # uma página por obra (colegio-vila-aurora.html, sede-atlantico.html…)
+├── vercel.json             # URLs sem .html, redirecionamentos dos endereços antigos
+├── tools/dev_server.py     # servidor local com as mesmas URLs da Vercel
 ├── js/
 │   ├── main.js             # página inicial: acordeões, formulário, vídeo + animações GSAP
 │   ├── site.js             # páginas internas: seletor de serviços, filtros de obras + animações
@@ -60,7 +75,7 @@ O script respeita `prefers-reduced-motion`.
 - [ ] **Imagens**: `hero-canteiro.jpg`, `obra-escola.jpg`, `obra-escritorio.jpg`, `obra-farmacia.jpg` e o vídeo foram gerados por IA. A farmácia tem um nome fictício na fachada. Trocar por fotos reais da empresa.
 - [ ] `obra-guindaste.jpg` tem baixa resolução (610×327): substituir por uma versão maior.
 - [ ] Revisar a responsividade no celular: a linha do tempo de "Como trabalhamos" pressupõe 4 colunas.
-- [ ] **Obras**: dados de exemplo (nome, local, área, método, status, galeria) em `obras.html` (atributos `data-cat`/`data-method`) e em `obra-N.html`. Ideal: gerar as páginas de obra a partir de um único arquivo de dados (JSON/CMS) em vez de 7 HTMLs.
+- [ ] **Obras**: dados de exemplo (nome, local, área, método, status, galeria) em `obras.html` (atributos `data-cat`/`data-method`) e em `obras/<nome>.html`. Ideal: gerar as páginas de obra a partir de um único arquivo de dados (JSON/CMS) em vez de 7 HTMLs.
 - [ ] Header/rodapé repetidos em todas as páginas: extrair para componentes/partials.
 - [ ] Opcional: migrar para um framework (ex.: Next.js + Tailwind), extraindo os estilos inline para CSS/componentes. Também otimizar as imagens (WebP/AVIF, `srcset`) e adicionar SEO (Open Graph, schema `LocalBusiness`) e favicon.
 
