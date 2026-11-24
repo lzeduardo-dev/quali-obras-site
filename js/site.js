@@ -52,7 +52,7 @@
     const grid = root.querySelector('[data-grid]');
     const onStyle = fBtns.find((b) => b.getAttribute('aria-pressed') === 'true').getAttribute('style');
     const offStyle = fBtns.find((b) => b.getAttribute('aria-pressed') === 'false').getAttribute('style');
-    const pattern = [['g4', 'r-wide'], ['g2', 'r-tall'], ['g2', 'r-sq'], ['g2', 'r-sq'], ['g2', 'r-sq'], ['g3', 'r-half'], ['g3', 'r-half']];
+    const pattern = [['g4', 'r-wide'], ['g2', 'r-tall'], ['g3', 'r-half'], ['g3', 'r-half'], ['g3', 'r-half'], ['g3', 'r-half']];
     let cat = 'Todas';
     function apply(animate) {
       const method = sel ? sel.value : '';

@@ -2,13 +2,50 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "redirects": [
-    { "source": "/README.md", "destination": "/", "permanent": false },
-    { "source": "/obra-1(\\.html)?", "destination": "/obras/colegio-vila-aurora", "permanent": true },
-    { "source": "/obra-2(\\.html)?", "destination": "/obras/sede-atlantico", "permanent": true },
-    { "source": "/obra-3(\\.html)?", "destination": "/obras/esquina-bela-vista", "permanent": true },
-    { "source": "/obra-4(\\.html)?", "destination": "/obras/mirante-do-vale", "permanent": true },
-    { "source": "/obra-5(\\.html)?", "destination": "/obras/polo-rio-novo", "permanent": true },
-    { "source": "/obra-6(\\.html)?", "destination": "/obras/casa-dos-ipes", "permanent": true },
-    { "source": "/obra-7(\\.html)?", "destination": "/obras/parque-das-aguas", "permanent": true }
+    {
+      "source": "/README.md",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/obra-1(\\.html)?",
+      "destination": "/obras/colegio-vila-aurora",
+      "permanent": true
+    },
+    {
+      "source": "/obra-2(\\.html)?",
+      "destination": "/obras/sede-atlantico",
+      "permanent": true
+    },
+    {
+      "source": "/obra-3(\\.html)?",
+      "destination": "/obras",
+      "permanent": true
+    },
+    {
+      "source": "/obras/esquina-bela-vista",
+      "destination": "/obras",
+      "permanent": true
+    },
+    {
+      "source": "/obra-4(\\.html)?",
+      "destination": "/obras/mirante-do-vale",
+      "permanent": true
+    },
+    {
+      "source": "/obra-5(\\.html)?",
+      "destination": "/obras/polo-rio-novo",
+      "permanent": true
+    },
+    {
+      "source": "/obra-6(\\.html)?",
+      "destination": "/obras/casa-dos-ipes",
+      "permanent": true
+    },
+    {
+      "source": "/obra-7(\\.html)?",
+      "destination": "/obras/parque-das-aguas",
+      "permanent": true
+    }
   ]
 }
