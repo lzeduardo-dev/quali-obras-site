@@ -61,7 +61,6 @@ O script respeita `prefers-reduced-motion`.
 - [ ] `obra-guindaste.jpg` tem baixa resolução (610×327): substituir por uma versão maior.
 - [ ] Revisar a responsividade no celular: a linha do tempo de "Como trabalhamos" pressupõe 4 colunas.
 - [ ] **Obras**: dados de exemplo (nome, local, área, método, status, galeria) em `obras.html` (atributos `data-cat`/`data-method`) e em `obra-N.html`. Ideal: gerar as páginas de obra a partir de um único arquivo de dados (JSON/CMS) em vez de 7 HTMLs.
-- [ ] `sobre-por-do-sol.jpg` parece ser foto do site de referência (obra de outra empresa): **substituir antes de publicar**.
 - [ ] Header/rodapé repetidos em todas as páginas: extrair para componentes/partials.
 - [ ] Opcional: migrar para um framework (ex.: Next.js + Tailwind), extraindo os estilos inline para CSS/componentes. Também otimizar as imagens (WebP/AVIF, `srcset`) e adicionar SEO (Open Graph, schema `LocalBusiness`) e favicon.
 
