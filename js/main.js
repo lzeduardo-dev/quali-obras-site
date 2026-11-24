@@ -41,7 +41,7 @@
       g.to(nw.t, { ...on.title, duration: 0.5, ease: 'power2.out' });
       g.to(nw.b, { ...on.btn, duration: 0.5, ease: 'power2.out' });
     }
-    if (imgs[k]) g.fromTo(imgs[k], { opacity: 0, scale: 1.05 }, { opacity: 1, scale: 1, duration: 1.2, ease: 'power2.out', overwrite: true });
+    if (imgs[k]) g.fromTo(imgs[k], { opacity: 0 }, { opacity: 1, duration: 1.2, ease: 'power2.out', overwrite: true });
     if (cards[k]) g.fromTo(cards[k], { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.6, delay: 0.3, ease: 'power3.out', overwrite: true });
   
   }
@@ -137,12 +137,10 @@
   g.context(() => {
 
       g.from('[data-hero]', { y: 56, opacity: 0, duration: 1.1, ease: 'power4.out', stagger: 0.12, delay: 0.15 });
-      g.from('[data-hero-img]', { scale: 1.18, duration: 2.6, ease: 'power2.out' });
       const header = root.querySelector('[data-header]');
       if (header && ST) {
         g.set(header, { backgroundColor: 'rgba(10,24,56,0)' });
         ST.create({ start: 80, end: 'max', onToggle: (self) => g.to(header, { backgroundColor: self.isActive ? 'rgba(10,24,56,0.94)' : 'rgba(10,24,56,0)', boxShadow: self.isActive ? '0 10px 30px rgba(5,14,40,0.25)' : '0 0 0 rgba(0,0,0,0)', duration: 0.35 }) });
-        g.to('[data-hero-img]', { yPercent: 8, ease: 'none', scrollTrigger: { trigger: '#topo', start: 'top top', end: 'bottom top', scrub: true } });
       }
       g.from('[data-float]', { y: 80, opacity: 0, duration: 0.8, delay: 1.2, ease: 'back.out(1.6)' });
       const dots = root.querySelectorAll('[data-hdot]'), rings = root.querySelectorAll('[data-hring]'), fill = root.querySelector('[data-hfill]');
@@ -195,15 +193,7 @@
         root.querySelectorAll('[data-stagger]').forEach((grp) => {
           g.from(grp.children, { y: 60, opacity: 0, duration: 0.85, ease: 'power3.out', stagger: 0.1, scrollTrigger: { trigger: grp, start: 'top 85%' } });
         });
-        root.querySelectorAll('[data-parallax]').forEach((img) => {
-          g.fromTo(img, { yPercent: -6 }, { yPercent: 6, ease: 'none', scrollTrigger: { trigger: img.parentNode, start: 'top bottom', end: 'bottom top', scrub: true } });
-        });
-        // Imagens: cortina subindo de baixo para cima enquanto a foto sai de um leve zoom
-        root.querySelectorAll('[data-img-reveal]').forEach((box) => {
-          const tl = g.timeline({ scrollTrigger: { trigger: box, start: 'top 85%' } });
-          tl.fromTo(box, { clipPath: 'inset(100% 0% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.3, ease: 'power4.inOut', clearProps: 'clipPath' })
-            .from(box.querySelectorAll('img'), { scale: 1.3, duration: 1.8, ease: 'power3.out' }, 0);
-        });
+        // As imagens da página inicial ficam paradas: sem cortina, zoom ou parallax.
     }
 
       root.querySelectorAll('[data-navlink]').forEach((a) => {
@@ -233,9 +223,9 @@
         cell.addEventListener('mouseleave', () => g.to(cell, { backgroundColor: 'rgba(234,240,250,0)', duration: 0.4 }));
       });
       root.querySelectorAll('[data-work]').forEach((w) => {
-        const img = w.querySelector('img'), t = w.querySelector('[data-work-title]'), ar = w.querySelector('[data-arrow]');
-        w.addEventListener('mouseenter', () => { g.to(img, { scale: 1.06, duration: 0.8, ease: 'power2.out', overwrite: 'auto' }); if (t) g.to(t, { color: '#163A8C', duration: 0.3 }); if (ar) g.to(ar, { x: 6, duration: 0.3, ease: 'power2.out' }); });
-        w.addEventListener('mouseleave', () => { g.to(img, { scale: 1, duration: 0.8, ease: 'power2.out', overwrite: 'auto' }); if (t) g.to(t, { color: '#141B2D', duration: 0.3 }); if (ar) g.to(ar, { x: 0, duration: 0.3 }); });
+        const t = w.querySelector('[data-work-title]'), ar = w.querySelector('[data-arrow]');
+        w.addEventListener('mouseenter', () => { if (t) g.to(t, { color: '#163A8C', duration: 0.3 }); if (ar) g.to(ar, { x: 6, duration: 0.3, ease: 'power2.out' }); });
+        w.addEventListener('mouseleave', () => { if (t) g.to(t, { color: '#141B2D', duration: 0.3 }); if (ar) g.to(ar, { x: 0, duration: 0.3 }); });
       });
       root.querySelectorAll('[data-card]').forEach((card) => {
         const img = card.querySelector('img'), plus = card.querySelector('[data-plus]');
