@@ -14,9 +14,10 @@ body{margin:0;background:#F5F7FB}
 a{color:#163A8C}a:hover{color:#0E2A6B}
 [hidden]{display:none !important}
 </style>
+<link rel="stylesheet" href="/css/site.css">
 </head>
 <body>
-<div id="app" style="font-family: Inter, system-ui, sans-serif; color: #141B2D; background: #F5F7FB; width: 100%; overflow-x: hidden">
+<div id="app" style="font-family: Inter, system-ui, sans-serif; color: #141B2D; background: #F5F7FB; width: 100%; overflow-x: clip">
 
   <!-- Header -->
   <header data-header="1" style="position: sticky; top: 0; z-index: 20; background: rgba(10,24,56,0.94); color: #FFFFFF">
@@ -34,7 +35,18 @@ a{color:#163A8C}a:hover{color:#0E2A6B}
         <a href="#" aria-label="Instagram" style="color: #FFFFFF; width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
         <a href="#" aria-label="LinkedIn" style="color: #FFFFFF; width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10v7M8 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 10v7"/></svg></a>
         <a href="https://wa.me/550000000000" data-magnet="1" style="display: inline-flex; align-items: center; gap: 10px; background: #3B74E0; color: #FFFFFF; text-decoration: none; padding: 12px 20px; border-radius: 999px; font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; min-height: 46px; box-sizing: border-box"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.4-4A8 8 0 1 1 8.5 19z"/><path d="M9.5 9.5c.3 2.3 2 4 4.5 4.5"/></svg>WhatsApp</a>
+        <button type="button" class="qo-menu-btn" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu-celular"><svg class="qo-ico-abrir" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg class="qo-ico-fechar" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
       </div>
+    </div>
+    <div id="menu-celular" class="qo-menu" hidden>
+      <nav aria-label="Menu">
+        <a href="/servicos" aria-current="page">Serviços<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a href="/obras">Obras<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a href="/sobre">Sobre<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a href="/#formulario">Contato<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </nav>
+      <a class="qo-menu-cta" href="https://wa.me/550000000000"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.4-4A8 8 0 1 1 8.5 19z"/><path d="M9.5 9.5c.3 2.3 2 4 4.5 4.5"/></svg>Falar no WhatsApp</a>
+      <div class="qo-menu-social"><a href="#" aria-label="Instagram"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a><a href="#" aria-label="LinkedIn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10v7M8 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 10v7"/></svg></a></div>
     </div>
   </header>
 
@@ -192,6 +204,7 @@ a{color:#163A8C}a:hover{color:#0E2A6B}
   </a>
 </div>
 <script>window.QO_SERVICES=[{"title": "Construção", "sub": "Obras novas e ampliações", "desc": "Casas, lojas, galpões e edifícios construídos do zero ou ampliados, com o método construtivo certo para cada caso e um único responsável técnico.", "items": ["Fundação e estrutura", "Alvenaria e cobertura", "Instalações elétricas e hidráulicas", "Acabamentos completos"], "img": "/assets/img/hero-canteiro.jpg", "alt": "Edifício em construção com guindaste"}, {"title": "Reformas", "sub": "Do acabamento à reforma completa", "desc": "Reformas parciais ou completas de residências e espaços comerciais, com cronograma pensado para atrapalhar o mínimo possível a sua rotina.", "items": ["Levantamento e projeto da reforma", "Demolição e retirada de entulho", "Revestimentos, pisos e pintura", "Adequação de instalações"], "img": "/assets/img/obra-escritorio.jpg", "alt": "Escritório reformado com sala de reunião"}, {"title": "Gerenciamento de obras", "sub": "Cronograma, materiais e equipe sob controle", "desc": "Assumimos o controle da obra: cronograma, custo, compras e equipe, com relatórios semanais para você acompanhar tudo de perto.", "items": ["Planejamento e cronograma", "Compras e controle de custos", "Fiscalização de terceiros", "Relatórios semanais com fotos"], "img": "/assets/img/servico-gerenciamento.jpg", "alt": "Minicarregadeira movendo terra no canteiro enquanto a equipe acompanha a obra"}, {"title": "Projetos e viabilidade", "sub": "Estudo do terreno e projetos integrados", "desc": "Antes de construir, estudamos o terreno, o orçamento e a legislação para definir o melhor caminho, com projetos compatibilizados entre si.", "items": ["Estudo de viabilidade e terreno", "Projeto arquitetônico", "Projetos complementares", "Aprovação nos órgãos públicos"], "img": "/assets/img/obra-escola.jpg", "alt": "Edifício escolar com fachada moderna"}];</script>
+<script src="/js/menu.js"></script>
 <script src="/js/vendor/gsap.min.js"></script>
 <script src="/js/vendor/ScrollTrigger.min.js"></script>
 <script src="/js/site.js"></script>

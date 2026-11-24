@@ -116,29 +116,43 @@
       }
       g.from('[data-float]', { y: 80, opacity: 0, duration: 0.8, delay: 1.2, ease: 'back.out(1.6)' });
       const dots = root.querySelectorAll('[data-hdot]'), rings = root.querySelectorAll('[data-hring]'), fill = root.querySelector('[data-hfill]');
+      const steps = root.querySelector('[data-hsteps]');
       if (dots.length && fill) {
         const C = 194.8, last = dots.length - 1;
-        g.set(rings, { strokeDashoffset: C });
-        g.set(fill, { scaleX: 0 });
-        const st = g.timeline({ repeat: -1, repeatDelay: 0.6, paused: true });
-        dots.forEach((dot, k) => {
-          st.to(rings[k], { strokeDashoffset: 0, duration: 0.9, ease: 'power1.inOut' })
-            .to(dot, { backgroundColor: '#3B74E0', borderColor: '#3B74E0', duration: 0.35, ease: 'power2.out' })
-            .to(dot, { scale: 1.08, duration: 0.15, yoyo: true, repeat: 1 }, '<');
-          if (k < last) st.to(fill, { scaleX: (k + 1) / last, duration: 0.8, ease: 'power1.inOut' });
-        });
-        st.to({}, { duration: 1.6 })
-          .to(dots, { backgroundColor: '#0A1838', borderColor: '#24407F', duration: 0.5 })
-          .to(rings, { strokeDashoffset: C, duration: 0.5 }, '<')
-          .to(fill, { scaleX: 0, duration: 0.5 }, '<');
-        // Começa quando a linha do tempo entra na tela e recomeça da etapa 01 a cada chegada;
-        // fica parada (e zerada) enquanto o usuário está fora da seção.
-        const steps = root.querySelector('[data-hsteps]');
-        if (ST && steps) {
-          ST.create({ trigger: steps, start: 'top 75%', end: 'bottom top',
-            onEnter: () => st.restart(), onEnterBack: () => st.restart(),
-            onLeave: () => st.pause(0), onLeaveBack: () => st.pause(0) });
-        } else st.play();
+        // Até 900px a linha do tempo fica vertical (css/site.css): a barra cresce para baixo e cada
+        // trecho termina no centro da próxima bolinha, medido na hora (as etapas têm alturas diferentes).
+        const buildSteps = (vertical) => {
+          const axis = vertical ? 'scaleY' : 'scaleX';
+          const upTo = (i) => {
+            if (!vertical) return i / last;
+            const r = dots[i].getBoundingClientRect();
+            return Math.min(1, (r.top + r.height / 2 - fill.getBoundingClientRect().top) / fill.offsetHeight);
+          };
+          g.set(rings, { strokeDashoffset: C });
+          g.set(fill, { scaleX: vertical ? 1 : 0, scaleY: vertical ? 0 : 1 });
+          const st = g.timeline({ repeat: -1, repeatDelay: 0.6, paused: true });
+          dots.forEach((dot, k) => {
+            st.to(rings[k], { strokeDashoffset: 0, duration: 0.9, ease: 'power1.inOut' })
+              .to(dot, { backgroundColor: '#3B74E0', borderColor: '#3B74E0', duration: 0.35, ease: 'power2.out' })
+              .to(dot, { scale: 1.08, duration: 0.15, yoyo: true, repeat: 1 }, '<');
+            if (k < last) st.to(fill, { [axis]: () => upTo(k + 1), duration: 0.8, ease: 'power1.inOut' });
+          });
+          st.to({}, { duration: 1.6 })
+            .to(dots, { backgroundColor: '#0A1838', borderColor: '#24407F', duration: 0.5 })
+            .to(rings, { strokeDashoffset: C, duration: 0.5 }, '<')
+            .to(fill, { [axis]: 0, duration: 0.5 }, '<');
+          // Começa quando a linha do tempo entra na tela e recomeça da etapa 01 a cada chegada
+          // (medindo de novo as posições); fica parada e zerada enquanto o usuário está fora da seção.
+          const restart = () => st.invalidate().restart();
+          if (ST && steps) {
+            ST.create({ trigger: steps, start: 'top 75%', end: 'bottom top',
+              onEnter: restart, onEnterBack: restart,
+              onLeave: () => st.pause(0), onLeaveBack: () => st.pause(0) });
+          } else st.play();
+        };
+        const mm = g.matchMedia();
+        mm.add('(max-width: 900px)', () => buildSteps(true));
+        mm.add('(min-width: 901px)', () => buildSteps(false));
       }
       root.querySelectorAll('[data-line]').forEach((ln, k) => {
         g.from(ln, { yPercent: 60, opacity: 0, duration: 1, delay: k * 0.15, ease: 'power4.out', scrollTrigger: ST ? { trigger: ln.parentNode, start: 'top 80%' } : undefined });
