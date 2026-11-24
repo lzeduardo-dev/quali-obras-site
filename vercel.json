@@ -1,0 +1,5 @@
+{
+  "redirects": [
+    { "source": "/README.md", "destination": "/", "permanent": false }
+  ]
+}
