@@ -1,6 +1,6 @@
 # Quali Obras — site institucional (handoff para o Claude Code)
 
-Site institucional de uma construtora (construção, reformas e gerenciamento de obras), em **pt-BR**.
+Site institucional da **Quali Obras**, construtora especializada em **retrofit e reformas** de imóveis residenciais e comerciais, em **pt-BR**.
 Este pacote é a exportação estática do protótipo feito no canvas de design.
 
 ## Rodar localmente
@@ -19,7 +19,7 @@ e abra http://localhost:8080. Na Vercel, o `vercel.json` faz o mesmo com `cleanU
 |---|---|---|
 | `/` | `index.html` | Página inicial (hero, números, diferenciais, serviços, portfólio, como trabalhamos, FAQ, formulário) |
 | `/servicos` | `servicos.html` | Seletor de serviços (troca imagem/descrição/itens) + etapas Pré-obra / Obra / Pós-obra |
-| `/obras` | `obras.html` | Portfólio com filtros por tipo e por método construtivo |
+| `/obras` | `obras.html` | Portfólio com filtros por tipo de imóvel e por tipo de intervenção (Retrofit, Reforma completa, Reforma parcial) |
 | `/obras/<nome>` | `obras/<nome>.html` | Página de cada obra (ficha técnica, imagem, descrição, galeria, anterior/próxima) |
 | `/sobre` | `sobre.html` | História, números, pilares, missão/visão/valores |
 
@@ -51,9 +51,9 @@ quali-obras-site/
 ## Seções (em ordem)
 
 1. **Header** fixo: transparente sobre o hero, ganha fundo azul ao rolar. Logo à esquerda, menu central, Instagram/LinkedIn e botão WhatsApp à direita.
-2. **Hero**: foto de fundo (`hero-canteiro.jpg`), slogan "Sua obra pronta, no prazo combinado.", CTA "Solicite um orçamento".
-3. **Números**: +40 obras, +100 mil m², +10 anos (contadores animados).
-4. **Faixa "Soluções construtivas para…"**: palavra final rotativa em loop.
+2. **Hero**: foto de fundo (`hero-canteiro.jpg`), slogan "Seu imóvel renovado, no prazo combinado.", CTA "Solicite um orçamento".
+3. **Números**: +40 obras, +100 mil m² reformados, +10 anos (contadores animados).
+4. **Faixa "Retrofit e reforma para…"**: palavra final rotativa em loop.
 5. **Por que famílias e empresas escolhem a Quali Obras**: 3 compromissos. A linha divisória fica azul no hover.
 6. **O problema que resolvemos**: vídeo de fundo + texto.
 7. **Serviços**: acordeão (4 serviços) que troca a imagem à direita com crossfade.
@@ -75,7 +75,7 @@ O script respeita `prefers-reduced-motion`.
 - [ ] **Imagens**: `hero-canteiro.jpg`, `obra-escola.jpg`, `obra-escritorio.jpg`, `obra-farmacia.jpg` e o vídeo foram gerados por IA. A farmácia tem um nome fictício na fachada. Trocar por fotos reais da empresa.
 - [ ] `obra-guindaste.jpg` tem baixa resolução (610×327): substituir por uma versão maior.
 - [ ] Revisar a responsividade no celular: a linha do tempo de "Como trabalhamos" pressupõe 4 colunas.
-- [ ] **Obras**: dados de exemplo (nome, local, área, método, status, galeria) em `obras.html` (atributos `data-cat`/`data-method`) e em `obras/<nome>.html`. Ideal: gerar as páginas de obra a partir de um único arquivo de dados (JSON/CMS) em vez de 7 HTMLs.
+- [ ] **Obras**: dados de exemplo (nome, local, área, método, status, galeria) em `obras.html` (atributos `data-cat`/`data-method`, onde `data-method` é o tipo de intervenção) e em `obras/<nome>.html`. Ideal: gerar as páginas de obra a partir de um único arquivo de dados (JSON/CMS) em vez de 7 HTMLs.
 - [ ] Header/rodapé repetidos em todas as páginas: extrair para componentes/partials.
 - [ ] Opcional: migrar para um framework (ex.: Next.js + Tailwind), extraindo os estilos inline para CSS/componentes. Também otimizar as imagens (WebP/AVIF, `srcset`) e adicionar SEO (Open Graph, schema `LocalBusiness`) e favicon.
 
