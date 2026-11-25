@@ -5,6 +5,19 @@
 /* Âncoras (#formulario, #como-trabalhamos…) não ficam escondidas atrás do header fixo */
 section[id] { scroll-margin-top: 72px; }
 
+/* Marca "qualiobra" no meio do texto: acompanha o tamanho e a cor das letras ao redor.
+   As letras usam a cor do texto (currentColor) e o telhado da casinha fica no azul da marca. */
+.qo-marca {
+  display: inline-block; position: relative;
+  height: 1.12em; width: 5.04em; vertical-align: -0.265em;
+}
+.qo-marca::before, .qo-marca::after {
+  content: ""; position: absolute; inset: 0;
+  -webkit-mask: var(--qo-marca) no-repeat center / contain; mask: var(--qo-marca) no-repeat center / contain;
+}
+.qo-marca::before { --qo-marca: url(/assets/logo/marca-texto.svg); background: currentColor; }
+.qo-marca::after { --qo-marca: url(/assets/logo/marca-telhado.svg); background: #3B74E0; }
+
 /* Botão de menu e painel só existem no celular/tablet */
 .qo-menu-btn, .qo-menu { display: none; }
 
