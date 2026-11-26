@@ -143,4 +143,6 @@ div:has(> [data-count]) {
   #portfolio a[data-work] > span:first-child { flex: 1 1 100% !important; aspect-ratio: 4 / 3 !important; }
 
   #duvidas [data-faq-panel] > p { padding-right: 0 !important; }
+
+  #depoimentos figure { padding: 36px 24px 32px !important; min-height: 0 !important; gap: 28px !important; border-radius: 18px !important; }
 }

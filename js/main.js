@@ -168,7 +168,7 @@
         const target = parseInt(el.textContent.replace(/\D/g, ''), 10);
         if (!target || /\[/.test(el.textContent)) return;
         const obj = { v: 0 };
-        g.to(obj, { v: target, duration: 2, ease: 'power2.out', onUpdate: () => { el.textContent = Math.round(obj.v).toLocaleString('pt-BR'); },
+        g.to(obj, { v: target, duration: 1.1, ease: 'power2.out', onUpdate: () => { el.textContent = Math.round(obj.v).toLocaleString('pt-BR'); },
           scrollTrigger: ST ? { trigger: el, start: 'top 85%' } : undefined });
       });
 
@@ -180,10 +180,10 @@
           g.from(grp.children, { y: 60, opacity: 0, duration: 0.85, ease: 'power3.out', stagger: 0.1, scrollTrigger: { trigger: grp, start: 'top 85%' } });
         });
         // As imagens da página inicial ficam paradas, menos as fotos do portfólio (Obras que falam por nós),
-        // que entram com a cortina subindo enquanto a foto sai de um leve zoom, como nas páginas internas.
+        // que entram com a cortina descendo (de cima para baixo) enquanto a foto sai de um leve zoom, como nas páginas internas.
         root.querySelectorAll('#portfolio [data-img-reveal]').forEach((box) => {
           const tl = g.timeline({ scrollTrigger: { trigger: box, start: 'top 85%' } });
-          tl.fromTo(box, { clipPath: 'inset(100% 0% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 0.8, ease: 'power4.inOut', clearProps: 'clipPath' })
+          tl.fromTo(box, { clipPath: 'inset(0% 0% 100% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 0.8, ease: 'power4.inOut', clearProps: 'clipPath' })
             .fromTo(box.querySelector('img'), { scale: 1.3 }, { scale: 1, duration: 1.05, ease: 'power3.out' }, 0);
         });
     }

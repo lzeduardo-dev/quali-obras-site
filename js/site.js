@@ -101,7 +101,7 @@
       root.querySelectorAll('[data-parallax]').forEach((img) => g.fromTo(img, { yPercent: -6 }, { yPercent: 6, ease: 'none', scrollTrigger: { trigger: img.parentNode, start: 'top bottom', end: 'bottom top', scrub: true } }));
       root.querySelectorAll('[data-count]').forEach((el) => {
         const t = parseInt(el.textContent.replace(/\D/g, ''), 10); if (!t || /\[/.test(el.textContent)) return;
-        const o = { v: 0 }; g.to(o, { v: t, duration: 2, ease: 'power2.out', onUpdate: () => { el.textContent = Math.round(o.v).toLocaleString('pt-BR'); }, scrollTrigger: { trigger: el, start: 'top 85%' } });
+        const o = { v: 0 }; g.to(o, { v: t, duration: 1.1, ease: 'power2.out', onUpdate: () => { el.textContent = Math.round(o.v).toLocaleString('pt-BR'); }, scrollTrigger: { trigger: el, start: 'top 85%' } });
       });
       root.querySelectorAll('[data-drawline]').forEach((ln) => g.from(ln, { scaleX: 0, transformOrigin: 'left center', duration: 1.1, ease: 'power3.inOut', scrollTrigger: { trigger: ln, start: 'top 88%' } }));
       root.querySelectorAll('[data-reveal-wide]').forEach((box) => {
