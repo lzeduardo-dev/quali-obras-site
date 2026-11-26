@@ -18,6 +18,14 @@ section[id] { scroll-margin-top: 72px; }
 .qo-marca::before { --qo-marca: url(/assets/logo/marca-texto.svg); background: currentColor; }
 .qo-marca::after { --qo-marca: url(/assets/logo/marca-telhado.svg); background: #3B74E0; }
 
+/* Números (+200 obras, +100 mil m², +10 anos), na página inicial e no Sobre */
+div:has(> [data-count]) {
+  font-family: 'Space Grotesk', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif !important;
+  font-weight: 700 !important; font-size: clamp(3.6rem, 8.4vw, 8.4rem) !important;
+  line-height: .95 !important; letter-spacing: -.05em !important;
+  font-variant-numeric: tabular-nums; white-space: nowrap;
+}
+
 /* Botão de menu e painel só existem no celular/tablet */
 .qo-menu-btn, .qo-menu { display: none; }
 
@@ -122,6 +130,7 @@ section[id] { scroll-margin-top: 72px; }
 
   section[aria-label^="Números"] > div { gap: 32px 0 !important; }
   section[aria-label^="Números"] > div > div { border-left: 0 !important; }
+  [style*="border-left"]:has([data-count]) { border-left: 0 !important; } /* números do Sobre */
 
   #diferenciais li[data-item] { flex-direction: column; gap: 20px !important; padding: 36px 0 !important; }
   #diferenciais li[data-item] p { font-size: 17px !important; }
