@@ -52,7 +52,7 @@ quali-obras-site/
 
 1. **Header** fixo: transparente sobre o hero, ganha fundo azul ao rolar. Logo à esquerda, menu central, Instagram/LinkedIn e botão WhatsApp à direita.
 2. **Hero**: foto de fundo (`hero-canteiro.jpg`), slogan "Seu imóvel renovado, no prazo combinado.", CTA "Solicite um orçamento".
-3. **Números**: +40 obras, +100 mil m² reformados, +10 anos (contadores animados).
+3. **Números**: +200 obras, +100 mil m² reformados, +10 anos (contadores animados).
 4. **Faixa "Retrofit e reforma para…"**: palavra final rotativa em loop.
 5. **Por que famílias e empresas escolhem a Quali Obras**: 3 compromissos. A linha divisória fica azul no hover.
 6. **O problema que resolvemos**: vídeo de fundo + texto.
