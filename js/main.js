@@ -179,7 +179,13 @@
         root.querySelectorAll('[data-stagger]').forEach((grp) => {
           g.from(grp.children, { y: 60, opacity: 0, duration: 0.85, ease: 'power3.out', stagger: 0.1, scrollTrigger: { trigger: grp, start: 'top 85%' } });
         });
-        // As imagens da página inicial ficam paradas: sem cortina, zoom ou parallax.
+        // As imagens da página inicial ficam paradas, menos as fotos do portfólio (Obras que falam por nós),
+        // que entram com a cortina subindo enquanto a foto sai de um leve zoom, como nas páginas internas.
+        root.querySelectorAll('#portfolio [data-img-reveal]').forEach((box) => {
+          const tl = g.timeline({ scrollTrigger: { trigger: box, start: 'top 85%' } });
+          tl.fromTo(box, { clipPath: 'inset(100% 0% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 0.8, ease: 'power4.inOut', clearProps: 'clipPath' })
+            .fromTo(box.querySelector('img'), { scale: 1.3 }, { scale: 1, duration: 1.05, ease: 'power3.out' }, 0);
+        });
     }
 
       root.querySelectorAll('[data-navlink]').forEach((a) => {
