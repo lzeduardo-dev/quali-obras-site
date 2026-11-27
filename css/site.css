@@ -26,6 +26,9 @@ div:has(> [data-count]) {
   font-variant-numeric: tabular-nums; white-space: nowrap;
 }
 
+/* Depoimentos: o círculo com as iniciais não encolhe quando o cargo e a empresa são longos */
+#depoimentos [data-t-initials] { flex: 0 0 56px; }
+
 /* Botão de menu e painel só existem no celular/tablet */
 .qo-menu-btn, .qo-menu { display: none; }
 
