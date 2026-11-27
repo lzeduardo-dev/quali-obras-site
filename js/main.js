@@ -177,7 +177,9 @@
           g.from(el, { y: 44, opacity: 0, duration: 0.95, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 88%' } });
         });
         root.querySelectorAll('[data-stagger]').forEach((grp) => {
-          g.from(grp.children, { y: 60, opacity: 0, duration: 0.85, ease: 'power3.out', stagger: 0.1, scrollTrigger: { trigger: grp, start: 'top 85%' } });
+          // As obras do portfólio descem (de cima para baixo), no mesmo sentido da cortina das fotos
+          const desce = grp.closest('#portfolio') ? -1 : 1;
+          g.from(grp.children, { y: 60 * desce, opacity: 0, duration: 0.85, ease: 'power3.out', stagger: 0.1, scrollTrigger: { trigger: grp, start: 'top 85%' } });
         });
         // As imagens da página inicial ficam paradas, menos as fotos do portfólio (Obras que falam por nós),
         // que entram com a cortina descendo (de cima para baixo) enquanto a foto sai de um leve zoom, como nas páginas internas.
