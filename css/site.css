@@ -126,7 +126,7 @@ div:has(> [data-count]) {
 
   /* ---------- Página inicial ---------- */
   #topo > div[style*="min-height: 820px"] { padding: 116px 20px 48px !important; min-height: 100svh !important; gap: 18px !important; }
-  #topo [data-hero-img] { object-position: center top !important; } /* foto vertical do celular */
+  #topo [data-hero-img] { object-position: 75% center !important; } /* foto vertical do celular, com os engenheiros à vista */
   #topo h1 { font-size: 44px !important; }
   #topo p { font-size: 17px !important; }
   #topo a[href="#formulario"] { align-self: stretch !important; justify-content: center; }
